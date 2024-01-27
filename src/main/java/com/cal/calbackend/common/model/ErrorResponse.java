@@ -1,41 +1,33 @@
 package com.cal.calbackend.common.model;
 
-import org.springframework.http.HttpStatus;
+import com.cal.calbackend.nutritionalInfo.model.NutritionalInfo;
+import jakarta.validation.ConstraintViolation;
+import lombok.Getter;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@Getter
 public class ErrorResponse {
-
-    private final HttpStatus status;
 
     private String message;
 
-    private String debugMessage;
+    private Map<String, String> errors;
 
-    public ErrorResponse(HttpStatus status) {
-        this.status = status;
-    }
-
-    public ErrorResponse(HttpStatus status, String message) {
-        this.status = status;
+    public ErrorResponse(String message) {
         this.message = message;
     }
 
-    public ErrorResponse(HttpStatus status, String message, Throwable ex) {
-        this.status = status;
-        this.message = message;
-        this.debugMessage = ex.getCause() != null ? ex.getCause().getMessage() : "";
+    public ErrorResponse(String message, BindingResult bindingResult){
+        this(message);
+        errors = new HashMap<String, String>();
+        if(bindingResult.hasErrors()){
+            for (FieldError fieldError : bindingResult.getFieldErrors()){
+                errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+        }
+//        bindingResult.getAllErrors().forEach(e -> {this.errors.put(e.(), e.getDefaultMessage());});
     }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-
 }
