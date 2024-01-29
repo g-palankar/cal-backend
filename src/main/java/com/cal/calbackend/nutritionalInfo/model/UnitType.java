@@ -40,7 +40,7 @@ public class UnitType implements UserType<Unit> {
 
     @Override
     public void nullSafeSet(PreparedStatement st, Unit value, int index, SharedSessionContractImplementor session) throws SQLException {
-        String stringValue = value.toString();
+        String stringValue = value != null ? value.toString() : null;
         st.setString(index, stringValue);
     }
 
