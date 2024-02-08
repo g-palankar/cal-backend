@@ -13,7 +13,9 @@ import java.sql.Types;
 
 public class UnitType implements UserType<Unit> {
     @Override
-    public int getSqlType() { return Types.VARCHAR; }
+    public int getSqlType() {
+        return Types.VARCHAR;
+    }
 
     @Override
     public Class<Unit> returnedClass() {
@@ -31,15 +33,18 @@ public class UnitType implements UserType<Unit> {
     }
 
     @Override
-    public Unit nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner) throws SQLException {
+    public Unit nullSafeGet(ResultSet rs, int position, SharedSessionContractImplementor session, Object owner)
+            throws SQLException {
         String storedValue = rs.getString(position);
-        if(storedValue == null) return null;
+        if (storedValue == null)
+            return null;
         return Units.getInstance().getUnit(storedValue);
 
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Unit value, int index, SharedSessionContractImplementor session) throws SQLException {
+    public void nullSafeSet(PreparedStatement st, Unit value, int index, SharedSessionContractImplementor session)
+            throws SQLException {
         String stringValue = value.toString();
         st.setString(index, stringValue);
     }
