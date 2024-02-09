@@ -30,6 +30,7 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null) throw new ApplicationException("User not authenticated", HttpStatus.UNAUTHORIZED, null);
         Jwt principal = (Jwt) authentication.getPrincipal();
         String email = principal.getClaim("email");
 
