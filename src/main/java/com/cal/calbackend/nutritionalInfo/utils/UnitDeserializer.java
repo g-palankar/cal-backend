@@ -1,4 +1,4 @@
-package com.cal.calbackend.nutritionalInfo.model;
+package com.cal.calbackend.nutritionalInfo.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

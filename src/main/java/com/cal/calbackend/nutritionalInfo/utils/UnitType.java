@@ -1,4 +1,4 @@
-package com.cal.calbackend.nutritionalInfo.model;
+package com.cal.calbackend.nutritionalInfo.utils;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;

@@ -1,10 +1,13 @@
 package com.cal.calbackend.nutritionalInfo.model;
 
+import com.cal.calbackend.nutritionalInfo.utils.UnitDeserializer;
+import com.cal.calbackend.nutritionalInfo.utils.UnitSerializer;
+import com.cal.calbackend.nutritionalInfo.utils.UnitType;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -32,6 +35,7 @@ public class NutritionalInfo {
     private Double quantity;
 
     @JsonDeserialize(using = UnitDeserializer.class)
+    @JsonSerialize(using = UnitSerializer.class)
     @NotNull(message = "Measure unit is required")
     @Type(value = UnitType.class)
     private Unit unit;
